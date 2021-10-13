@@ -144,7 +144,7 @@ class Game extends React.Component{
 			  if (nextSibling !== null) {
 						nextSibling.focus();
 					  } 
-		}else{
+		}else if(event.target.value!=8){
 			alert('Please enter an alphabet.');
 		}
   }
