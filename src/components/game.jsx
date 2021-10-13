@@ -226,8 +226,7 @@ class Game extends React.Component{
 		 <button id='submit' onClick={this.submitWord} style={{backgroundColor:"#00B1E1"}} disabled={this.state.showSuccess}>Check Word</button>
 		 <br/>
 		 <br/>
-		 </Col>
-		 <Col>
+		  
 		 <Table striped bordered hover size="sm">
 		 <tbody>
      {this.state.pastGuess.map((item) =>
