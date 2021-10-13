@@ -1,0 +1,1 @@
+export default ["MILK","HELP","BEST","KITE","FAST","PRAY","GOAL","CROP","WORD","NAME"]
