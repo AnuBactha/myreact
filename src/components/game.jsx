@@ -222,8 +222,8 @@ class Game extends React.Component{
          />
 		<br/>
 		<br/> 
-		 <button id='clear' onClick={this.clearWord} style={{margin:5}}>Clear</button>
-		 <button id='submit' onClick={this.submitWord} style={{backgroundColor:"#00B1E1"}}>Check Word</button>
+		 <button id='clear' onClick={this.clearWord} style={{margin:5}} disabled={this.state.showSuccess}>Clear</button>
+		 <button id='submit' onClick={this.submitWord} style={{backgroundColor:"#00B1E1"}} disabled={this.state.showSuccess}>Check Word</button>
 		 <br/>
 		 <br/>
 		 </Col>
