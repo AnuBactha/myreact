@@ -165,7 +165,7 @@ class Game extends React.Component{
 			message = <Alert variant="success">You Won!</Alert>;
 		else{
 			if(this.state.guesses===0)
-				message = <Alert variant="warning">You Lost! The correct word was {this.state.wordToGuess}.</Alert>; 
+				message = <Alert variant="warning">You Lost! The correct word was {this.state.wordToGuess}!</Alert>; 
 			
 		}
 	return (
