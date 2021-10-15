@@ -1,1 +1,1 @@
-export default ["MILK","HELP","BEST","KITE","FAST","PRAY","GOAL","CROP","WORD","NAME"]
+export default ["LOST","HEAT","WORK","MORE","BARK","LOVE","MILK","HELP","BEST","KITE","FAST","PRAY","GOAL","CROP","WORD","NAME"]

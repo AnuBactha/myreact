@@ -8,7 +8,6 @@ import Table from 'react-bootstrap/Table';
 import Modal from 'react-bootstrap/Modal';
 import Result from './result';
 import data from './data';
-import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react'
 
 class Game extends React.Component{
 	
@@ -165,14 +164,13 @@ class Game extends React.Component{
 			message = <Alert variant="success">You Won!</Alert>;
 		else{
 			if(this.state.guesses===0)
-				message = <Alert variant="warning">You Lost! The correct word was {this.state.wordToGuess}.</Alert>; 
+				message = <Alert variant="warning">You Lost!</Alert>; 
 			
 		}
 	return (
 		<Container className="text-center" style={{backgroundColor:'#FAA852'}}>
 		<Row>
 			<Col>
-			<AmplifySignOut />
 	     <Alert variant="primary">
 			  <Alert.Heading>Cows And Bulls</Alert.Heading>
 			  <p>
@@ -257,4 +255,4 @@ class Game extends React.Component{
  
 }
 
-export default withAuthenticator(Game);
+export default Game;
