@@ -8,6 +8,7 @@ import Table from 'react-bootstrap/Table';
 import Modal from 'react-bootstrap/Modal';
 import Result from './result';
 import data from './data';
+import {Auth} from 'aws-amplify';
 import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react'
 
 class Game extends React.Component{
@@ -15,6 +16,7 @@ class Game extends React.Component{
 	constructor() {
     super();
     this.state = {guesses: "10",
+	currentUser:'',
 	letter1:'',
 	letter2:'',
 	letter3:'',
@@ -35,6 +37,10 @@ class Game extends React.Component{
 	
 	componentDidMount =() =>{
 		this.newGame();
+		Auth.currentAuthenticatedUser()
+    .then(user => this.setState({currentUser:user.username}))
+    .catch(err => console.log(err));
+	
 	}
 	
    newGame(){
@@ -171,8 +177,12 @@ class Game extends React.Component{
 	return (
 		<Container className="text-center" style={{backgroundColor:'#FAA852'}}>
 		<Row>
+		<Col><h2>Hello {this.state.currentUser}!</h2></Col>
+		<Col><AmplifySignOut /></Col>
+		</Row>
+		<Row>
 			<Col>
-			<AmplifySignOut />
+			
 	     <Alert variant="primary">
 			  <Alert.Heading>Cows And Bulls</Alert.Heading>
 			  <p>
@@ -183,8 +193,9 @@ class Game extends React.Component{
 		 </Col>
 		 </Row>
 		 <Row>
-		 <Col>
-  <button onClick={this.newGame} style={{backgroundColor:"#8CC152"}}>New Game</button>
+		 <Col> 
+  <button onClick={this.newGame} style={{backgroundColor:"#8CC152"}}>New Game</button> 
+  
 		<br/>
 		<br/>
 		<Alert variant="success">Number of guesses left : {this.state.guesses} </Alert>
