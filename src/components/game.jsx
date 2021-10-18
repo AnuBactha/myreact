@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Alert from 'react-bootstrap/Alert';
+import Collapse from 'react-bootstrap/Collapse';
 import Table from 'react-bootstrap/Table';
 import Modal from 'react-bootstrap/Modal';
 import Result from './result';
@@ -26,6 +27,7 @@ class Game extends React.Component{
 	wordToGuess:'',
  	showSuccess:false, 
 	validWord:true,
+	collapseMenu: true,
 	showModal:false};
 	this.handleChange = this.handleChange.bind(this);
 	this.submitWord = this.submitWord.bind(this);
@@ -164,8 +166,15 @@ class Game extends React.Component{
   handleShow(){
 	  this.setState({showModal:true});
   }
+   showHide =(e)=>{
+    e.preventDefault();
+
+    this.setState({
+      collapseMenu: !this.state.collapseMenu
+    });
+  }
   render() {
-	  
+	   
 	  let message;
 	  	if(this.state.showSuccess)
 			message = <Alert variant="success">You Won!</Alert>;
@@ -177,27 +186,36 @@ class Game extends React.Component{
 	return (
 		<Container className="text-center" style={{backgroundColor:'#FAA852'}}>
 		<Row>
-		<Col><h2>Hello {this.state.currentUser}!</h2></Col>
+		<Col><h3 class="text-secondary">Hello {this.state.currentUser}!</h3></Col>
 		<Col><AmplifySignOut /></Col>
 		</Row>
 		<Row>
 			<Col>
-			
-	     <Alert variant="primary">
-			  <Alert.Heading>Cows And Bulls</Alert.Heading>
-			  <p>
-				Try to guess the word. Number of Bulls shows the number of letters in the correct 
+			 <h2 class="text-success">Cows and Bulls</h2> 
+	      <button
+        onClick={this.showHide}
+        aria-controls="example-collapse-text"
+        aria-expanded="false"
+		class="btn btn-primary btn-sm mr-3  btn-space"
+      >
+        Instructions
+      </button>&nbsp;&nbsp;
+	   <button onClick={this.newGame} class="btn btn-success btn-sm mr-3  btn-space">New Game</button> 
+		 <br/>
+		 <br/>
+      <Collapse in={!this.state.collapseMenu}>
+        <div id="example-collapse-text">
+           Try to guess the word. Number of Bulls shows the number of letters in the correct 
 				position and number of Cows shows the number of letters in the wrong position.
-			  </p>
-			  </Alert>
+        </div>
+      </Collapse>
+	 
+	  
 		 </Col>
 		 </Row>
 		 <Row>
 		 <Col> 
-  <button onClick={this.newGame} style={{backgroundColor:"#8CC152"}}>New Game</button> 
-  
-		<br/>
-		<br/>
+   
 		<Alert variant="success">Number of guesses left : {this.state.guesses} </Alert>
 		<Result word={this.state.wordToGuess}/>
 			{message}
