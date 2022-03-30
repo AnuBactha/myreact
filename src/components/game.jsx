@@ -30,6 +30,7 @@ class Game extends React.Component{
 	collapseMenu: true,
 	showModal:false};
 	this.handleChange = this.handleChange.bind(this);
+	this.handleKeyDown = this.handleKeyDown.bind(this);
 	this.submitWord = this.submitWord.bind(this);
 	this.clearWord = this.clearWord.bind(this);
 	this.newGame = this.newGame.bind(this);
@@ -140,7 +141,7 @@ class Game extends React.Component{
   }
   handleChange(event){
 	  if(event.target.value.length === 1 && event.target.value.match(/[a-z]/i)){
-			  this.setState({[event.target.id]:event.target.value});
+		     this.setState({[event.target.id]:event.target.value});
 			  var lastChar = event.target.id.substr(event.target.id.length - 1);
 			  var nextId = parseInt(lastChar,10)+1;
 			  var nextSibling = '';
@@ -153,12 +154,35 @@ class Game extends React.Component{
 			  if (nextSibling !== null) {
 						nextSibling.focus();
 					  } 
-		}else  {
+		} else{
 			//alert('Please enter an alphabet.');
 			this.setState({[event.target.id]:''});
 		}
   }
 	
+  handleKeyDown(event){
+		if(event.keyCode===8){
+			//alert('backpace'+event.target.id+'  '+event.target.value);
+			if(event.target.value.length===0 ){
+ 				  var lastChar = event.target.id.substr(event.target.id.length - 1);
+				  var prevId = parseInt(lastChar,10)-1;
+				  var prevSibling = '';
+				  var prevTarget = 'letter'+prevId;	
+				  if(prevId===0){
+					prevSibling = document.querySelector('input[id=letter1]');  
+				  }else{
+					this.setState({[prevTarget]:''});  
+					prevSibling = document.querySelector('input[id=letter'+prevId+']');
+				  }
+				  if (prevSibling !== null) {
+							prevSibling.focus();
+						  }
+			}else{
+				this.setState({[event.target.id]:''});
+			}
+		}
+  }
+  
   handleClose(){
 		this.setState({showModal:false});
 		 document.querySelector('input[id=letter1]').focus();
@@ -191,13 +215,14 @@ class Game extends React.Component{
 		</Row>
 		<Row>
 			<Col>
-			 <h2 class="text-success">Cows and Bulls</h2> 
+			 <h2 class="text-success">Cows and Bulls </h2> 
+			 <div> &nbsp;&nbsp; By Anupriya Bacthavachalam</div>
+			 <br/>
 	      <button
         onClick={this.showHide}
         aria-controls="example-collapse-text"
         aria-expanded="false"
-		class="btn btn-primary btn-sm mr-3  btn-space"
-      >
+		class="btn btn-primary btn-sm mr-3  btn-space">
         Instructions
       </button>&nbsp;&nbsp;
 	   <button onClick={this.newGame} class="btn btn-success btn-sm mr-3  btn-space">New Game</button> 
@@ -225,6 +250,7 @@ class Game extends React.Component{
 			maxLength="1" 
 			value={this.state.letter1} 
 			onChange={this.handleChange}
+			onKeyDown={this.handleKeyDown}
 			style={{width:50,margin:3,fontSize:50}}
 			 autoFocus
          />
@@ -234,6 +260,7 @@ class Game extends React.Component{
 			maxLength="1"
             value={this.state.letter2}
             onChange={this.handleChange}
+			onKeyDown={this.handleKeyDown}
 			style={{width:50,margin:3,fontSize:50}}
          />
 		 <input
@@ -242,7 +269,8 @@ class Game extends React.Component{
 			maxLength="1"
             value={this.state.letter3}
 			style={{width:50,margin:3,fontSize:50}}
-            onChange={this.handleChange}
+            onKeyDown={this.handleKeyDown}
+			onChange={this.handleChange}
          />
 		 <input
             type="text"
@@ -250,6 +278,7 @@ class Game extends React.Component{
 			maxLength="1"
             value={this.state.letter4}
             onChange={this.handleChange}
+			onKeyDown={this.handleKeyDown}
 			style={{width:50,margin:3,fontSize:50}}
          />
 		<br/>
